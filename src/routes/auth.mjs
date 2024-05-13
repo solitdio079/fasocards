@@ -1,17 +1,18 @@
 import { Router } from "express"
 import passport from "passport"
-import MagicLoginStrategy from "passport-magic-login"
+import MagicLinkStrategy from "passport-magic-link"
 import User from "../models/users.mjs"
 import sendgrid from '@sendgrid/mail'
 
-
-const magicLogin = new MagicLoginStrategy({
+sendgrid.setApiKey(process.env['SENDGRID_API_KEY'])
+const router = Router()
+const magicLogin = new MagicLinkStrategy({
     secret: 'keyboard cat',
     userFields: ['email'],
     tokenField: 'token',
     verifyUserAfterToken: true,
 }, function send(user, token) {
-    const link = 'http://localhost:3000/login/verify?token=' + token
+    const link = 'http://localhost:3000/login/email/verify?token=' + token
     const msg = {
       to: user.email,
       from: process.env['EMAIL'],
@@ -51,12 +52,14 @@ router.post(
   '/login/email',
   passport.authenticate('magiclink', {
     action: 'requestToken',
-    failureRedirect: '/login',
+    failureRedirect: '/',
   }),
   function (req, res, next) {
     res.redirect('/login/email/check')
   }
 )
 router.get('/login/email/check', function (req, res, next) {
-  res.render('login/email/check')
+  res.send("Successfully sent!")
 })
+
+export default router

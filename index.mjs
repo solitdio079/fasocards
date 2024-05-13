@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
+import authRouter from './src/routes/auth.mjs'
 
 
 
@@ -31,6 +32,8 @@ app.use(
 )
 app.use(passport.initialize())
 app.use(passport.session())
+
+app.use("/auth", authRouter)
 
 const port = process.env.PORT || 3000
 
