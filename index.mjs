@@ -8,7 +8,7 @@ import authRouter from './src/routes/auth.mjs'
 
 
 //Connect to database
-mongoose.connect("mongodb://localhost:27017/starter").then(() => {console.log("Connected to database")})
+mongoose.connect("mongodb://localhost:27017/fasocards").then(() => {console.log("Connected to database")})
 
 
 // Instantiating the express app
