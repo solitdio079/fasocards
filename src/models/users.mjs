@@ -6,11 +6,6 @@ const userSchema = new Schema({
         unique: true,
         required: true
     },
-    fullName: {
-        type: String,
-        required: true
-        
-    },
     admin: {
         type: Boolean,
         default: false

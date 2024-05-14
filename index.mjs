@@ -7,8 +7,6 @@ import passport from 'passport'
 import authRouter from './src/routes/auth.mjs'
 
 
-
-
 //Connect to database
 mongoose.connect("mongodb://localhost:27017/starter").then(() => {console.log("Connected to database")})
 
