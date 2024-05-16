@@ -5,6 +5,7 @@ import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import authRouter from './src/routes/auth.mjs'
+import businessRouter from './src/routes/business.mjs'
 
 
 //Connect to database
@@ -22,9 +23,12 @@ app.use(
     secret: 'ready',
     resave: false,
     saveUninitialized: false,
+    cooki: {
+      secure:true
+    },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
-      dbName: 'starter',
+      dbName: 'fasocards',
     }),
   })
 )
@@ -32,6 +36,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use("/auth", authRouter)
+app.use("/business", businessRouter)
 
 const port = process.env.PORT || 3000
 
