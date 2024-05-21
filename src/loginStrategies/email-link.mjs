@@ -15,7 +15,7 @@ const magicLogin = new magicLinkStrategy(
   },
   function send(user, token) {
     const link =
-      'https://fasocards.onrender.com//auth/login/email/verify?token=' +
+      'https://fasocards.onrender.com/auth/login/email/verify?token=' +
       token
     const msg = {
       to: user.email,
@@ -25,7 +25,7 @@ const magicLogin = new magicLinkStrategy(
         'Hello! Click the link below to finish signing in to Todos.\r\n\r\n' +
         link,
       html:
-        '<h3>Hello!</h3><p>Click the link below to finish signing in to Todos."'+link+'"</p><p><a href="' +
+        '<h3>Hello!</h3><p>Click the link below to finish signing in to Todos.</p><p><a href="' +
         link +
         '">Sign in</a></p>',
     }
