@@ -14,7 +14,9 @@ const magicLogin = new magicLinkStrategy(
     verifyUserAfterToken: true,
   },
   function send(user, token) {
-    const link = 'http://localhost:3000/auth/login/email/verify?token=' + token
+    const link =
+      'https://fasocards.onrender.com//auth/login/email/verify?token=' +
+      token
     const msg = {
       to: user.email,
       from: process.env['EMAIL'],

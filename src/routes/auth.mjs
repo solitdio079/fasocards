@@ -27,7 +27,7 @@ router.get(
       if (err) {
         return next(err)
       }
-      res.redirect('http://localhost:5173/')
+      res.redirect('https://fasocard.com/')
     })
   }
 )
