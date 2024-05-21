@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -15,7 +16,13 @@ mongoose.connect("mongodb://localhost:27017/fasocards").then(() => {console.log(
 // Instantiating the express app
 const app = express()
 
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  credentials: true,
+  optionsSuccessStatus: 200,
+}
 
+app.use(cors(corsOptions))
 app.use(cookieParser("secret"))
 app.use(express.json())
 app.use(
@@ -42,7 +49,7 @@ const port = process.env.PORT || 3000
 
 
 app.get("/", (req, res) => {
-    res.send("This is the homepage")
+    res.send({homeMsg: "This is the homepage" }) 
 })
 
 

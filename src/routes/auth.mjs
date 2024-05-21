@@ -11,7 +11,7 @@ router.post(
     failureRedirect: '/',
   }),
   function (req, res, next) {
-    res.redirect('/auth/login/email/check')
+    res.send({msg: "email sent"})
   }
 )
 router.get('/login/email/check', function (req, res, next) {
@@ -27,7 +27,7 @@ router.get(
       if (err) {
         return next(err)
       }
-      res.redirect('/')
+      res.redirect('http://localhost:5173/')
     })
   }
 )
@@ -41,6 +41,6 @@ router.post('/logout', function (req, res, next) {
 })
 router.get('/status', (req, res) => {
   if (req.user) return res.send(req.user)
-  return res.send(req.session)
+  return res.send({status: 404})
 })
 export default router

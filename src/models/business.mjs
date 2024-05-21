@@ -40,7 +40,7 @@ const businessSchema = new Schema({
   instagramLink: {
     type: String,
     },
-    linkedLink: {
+    linkedinLink: {
       type: String
   }
 })

@@ -11,6 +11,18 @@ const checkLogin = (req, res, next) => {
 
 
 const router = Router()
+
+router.get('/:name', async (req, res) => {
+  const { name } = req.params
+  try {
+    const checkBusiness = await Business.findOne({ name })
+    if (!checkBusiness) return res.send({ data: [] })
+
+    return res.send({ data: checkBusiness })
+  } catch (error) {
+    return res.send({ error })
+  }
+})
 router.use(checkLogin)
 
 router.get('/', async (req, res) => {
@@ -31,7 +43,7 @@ router.post("/", checkSchema(businessSchema), async (req, res) => {
     // Checking whether the validation has errors or not
     const result = validationResult(req)
     if (!result.isEmpty()) {
-        return res.send(result.array())
+        return res.send(req.body)
     }
 
     //const data = matchedData(req)
@@ -117,20 +129,7 @@ router.get("/getQRcode/:name", param('name').notEmpty().withMessage("Please ente
     }
 })
 
-router.get('/:name', async (req, res) => {
-    const {name} = req.params
-    try {
-         const checkBusiness = await Business.findOne({ name })
-      if (!checkBusiness)
-          return res.send({ data: [] })
 
-        return res.send({data: checkBusiness})
-    } catch (error) {
-        return res.send({error})
-    }
-       
-  }
-)
 
 router.put('/update/:name', param('name').notEmpty().withMessage('Please enter the name of your business!'),checkSchema(businessSchema), async (req, res) => {
    
