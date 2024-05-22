@@ -21,7 +21,7 @@ try {
 const app = express()
 
 const corsOptions = {
-    origin: 'https://fasocard.com',
+    origin: ['https://fasocard.com','http://localhost:5173'],
     credentials: true,
     optionsSuccessStatus: 200,
   }
