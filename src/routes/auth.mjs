@@ -41,6 +41,6 @@ router.post('/logout', function (req, res, next) {
 })
 router.get('/status', (req, res) => {
   if (req.user) return res.send(req.user)
-  return res.send({status: 404})
+  return res.send({status: req.session})
 })
 export default router
