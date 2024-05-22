@@ -37,6 +37,7 @@ app.use(
     saveUninitialized: false,
     cooki: {
       secure: true,
+      proxy:true
     },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
@@ -44,6 +45,7 @@ app.use(
     }),
   })
 )
+app.set('trust proxy',1)
 app.use(passport.initialize())
 app.use(passport.session())
 
