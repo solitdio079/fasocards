@@ -35,9 +35,9 @@ app.use(
     secret: 'ready',
     resave: false,
     saveUninitialized: false,
-    cooki: {
+    cookie: {
       secure: true,
-      proxy:true
+      sameSite:'none'
     },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
