@@ -37,8 +37,6 @@ app.use(
     saveUninitialized: false,
     cooki: {
       secure: true,
-      sameSite: 'None',
-      domain:'https://fasocard.com'
     },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
