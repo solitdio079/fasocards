@@ -22,10 +22,10 @@ const magicLogin = new magicLinkStrategy(
       from: process.env['EMAIL'],
       subject: 'Sign in to App',
       text:
-        'Hello! Click the link below to finish signing in to Todos.\r\n\r\n' +
+        'Hello! Click the link below to finish signing in to FasoCard.\r\n\r\n' +
         link,
       html:
-        '<h3>Hello!</h3><p>Click the link below to finish signing in to Todos.</p><p><a href="' +
+        '<h3>Hello!</h3><p>Click the link below to finish signing in to FasoCard.</p><p><a href="' +
         link +
         '">Sign in</a></p>',
     }
