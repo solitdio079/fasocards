@@ -37,7 +37,7 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: true,
-      sameSite:'none'
+      sameSite:'Lax'
     },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
