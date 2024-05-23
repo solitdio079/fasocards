@@ -37,7 +37,8 @@ app.use(
     saveUninitialized: false,
     cookie: {
       secure: true,
-      sameSite:'lax'
+      sameSite: 'none',
+      domain:"fasocard.com"
     },
     store: MongoStore.create({
       client: mongoose.connection.getClient(),
