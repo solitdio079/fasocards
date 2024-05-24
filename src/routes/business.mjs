@@ -74,7 +74,7 @@ router.get("/list/:owner", param('owner').isEmail().withMessage('The owner shoul
 
     try {
         const allBusiness = await Business.find({ owner })
-        if (!allBusiness) return res.send({ data: [] })
+        if (!allBusiness) return res.send([])
         
         return res.send(allBusiness)
         
