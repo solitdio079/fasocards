@@ -79,7 +79,7 @@ router.get("/list/:owner", param('owner').isEmail().withMessage('The owner shoul
         return res.send(allBusiness)
         
     } catch (error) {
-        
+        return res.send(error.message)
     }
 
     
