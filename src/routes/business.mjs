@@ -91,7 +91,7 @@ router.get(
         const result = validationResult(req)
           if (!result.isEmpty()) return res.send(result.array())
         const data = matchedData(req)
-        const businessUrl = 'http//localhost:3000/business/' + data.name
+        const businessUrl = 'http//fasocard.com/business/' + data.name
 
         return res.send({link: businessUrl})
         
@@ -116,7 +116,7 @@ router.get("/getQRcode/:name", param('name').notEmpty().withMessage("Please ente
         if(checkBusiness.owner !== req.user.email) return res.status(403).send({ error: 'This business is not yours!' })
 
       // Generate QR code and send it to user
-        const businessUrl = 'http//localhost:3000/business/' + data.name
+        const businessUrl = 'http//fasocard.com/business/' + data.name
         const qrStream = new PassThrough()
         const result = await QRCode.toFileStream(qrStream, businessUrl, {
           type: 'png',
