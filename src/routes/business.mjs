@@ -53,7 +53,8 @@ router.post("/", checkSchema(businessSchema), async (req, res) => {
     
     // Creating a new business 
     const { body } = req
-    const owner = req.user.email
+  const owner = req.user.email
+   body.name= body.name.trim()
     const newBusiness = new Business({...body, owner})
     try {
         await newBusiness.save()
