@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { validationResult, matchedData, checkSchema, param } from 'express-validator'
 import businessSchema from '../validators/businessValidator.mjs'
 import Business from '../models/business.mjs'
+import mongoose from 'mongoose'
 import QRCode from 'qrcode'
 import { PassThrough } from 'stream'
 const checkLogin = (req, res, next) => {
@@ -116,7 +117,7 @@ router.get("/getQRcode/:name", param('name').notEmpty().withMessage("Please ente
         if(checkBusiness.owner !== req.user.email) return res.status(403).send({ error: 'This business is not yours!' })
 
       // Generate QR code and send it to user
-        const businessUrl = 'http//fasocard.com/business/' + data.name
+        const businessUrl = encodeURI('http//fasocard.com/business/' + data.name)
         const qrStream = new PassThrough()
         const result = await QRCode.toFileStream(qrStream, businessUrl, {
           type: 'png',
