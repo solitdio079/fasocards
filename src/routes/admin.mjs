@@ -7,8 +7,8 @@ const router = Router()
 
 
 const checkStatus = (req, res, next) => {
-    if (req.user && req.user.isAdmin) next()
-    throw new Error("Vous n'etes pas admin!")
+    if (!req.user || !req.user.isAdmin)  throw new Error("Vous n'etes pas admin!")
+    next()
 }
 
 router.use(checkStatus)
