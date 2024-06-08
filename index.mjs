@@ -7,6 +7,7 @@ import MongoStore from 'connect-mongo'
 import passport from 'passport'
 import authRouter from './src/routes/auth.mjs'
 import businessRouter from './src/routes/business.mjs'
+import adminRouter from './src/routes/admin.mjs'
 
 
 //Connect to database
@@ -52,6 +53,7 @@ app.use(passport.session())
 
 app.use("/auth", authRouter)
 app.use("/business", businessRouter)
+app.use("/admin", adminRouter)
 
 const port = process.env.PORT || 3000
 
