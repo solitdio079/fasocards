@@ -65,7 +65,12 @@ router.get('/', async (req, res) => {
     return res.send({ error })
   }
 })
-router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), async (req, res) => {
+router.post("/", upload.single('profilePhoto'), (req, res, next) => {
+  // converitng req.body from form-data to  json 
+  req.body = JSON.stringify(Object.fromEntries(req.body))
+  next()
+  
+}, checkSchema(businessSchema), async (req, res) => {
     // Checking whether the validation has errors or not
     const result = validationResult(req)
     if (!result.isEmpty()) {
