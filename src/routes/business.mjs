@@ -68,6 +68,7 @@ router.get('/', async (req, res) => {
 router.post("/", upload.single('profilePhoto'), (req, res, next) => {
   // converitng req.body from form-data to  json 
   //console.log(req.body);
+  console.log(req.body);
   req.body = JSON.stringify(req.body)
   next()
   
