@@ -3,8 +3,33 @@ import { validationResult, matchedData, checkSchema, param } from 'express-valid
 import businessSchema from '../validators/businessValidator.mjs'
 import Business from '../models/business.mjs'
 import mongoose from 'mongoose'
+import path from 'node:path'
 import QRCode from 'qrcode'
 import { PassThrough } from 'stream'
+
+import multer from 'multer'
+
+// Business photos storage setup
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.resolve('/uploads/businesses'))
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix =
+      Date.now() +
+      '-' +
+      Math.round(Math.random() * 1e9) +
+      '.' +
+      file.mimetype.split('/')[1]
+    cb(null, file.fieldname + '-' + uniqueSuffix)
+  },
+})
+
+const upload = multer({ storage: storage })
+
+
+
+
 const checkLogin = (req, res, next) => {
   if (!req.user) return res.send('Please Login!')
   next()
@@ -40,7 +65,7 @@ router.get('/', async (req, res) => {
     return res.send({ error })
   }
 })
-router.post("/", checkSchema(businessSchema), async (req, res) => {
+router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), async (req, res) => {
     // Checking whether the validation has errors or not
     const result = validationResult(req)
     if (!result.isEmpty()) {
@@ -54,8 +79,9 @@ router.post("/", checkSchema(businessSchema), async (req, res) => {
     // Creating a new business 
     const { body } = req
   const owner = req.user.email
+  const profilePhoto = req.file.filename
    body.name= body.name.trim()
-    const newBusiness = new Business({...body, owner})
+    const newBusiness = new Business({...body, owner, profilePhoto})
     try {
         await newBusiness.save()
         return res.status(201).send(newBusiness)

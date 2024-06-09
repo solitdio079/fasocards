@@ -16,6 +16,12 @@ const businessSchema = {
       errorMessage: 'Your business description must have at least 20 characters',
     },
   },
+  country: {
+    notEmpty: true
+  },
+  address: {
+    notEmpty: true
+  }
 }
 
 export default businessSchema

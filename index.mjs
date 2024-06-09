@@ -10,6 +10,7 @@ import businessRouter from './src/routes/business.mjs'
 import adminRouter from './src/routes/admin.mjs'
 
 
+
 //Connect to database
 try {
   await mongoose.connect(process.env.MONGO_URI)
@@ -20,6 +21,7 @@ try {
 }
 // Instantiating the express app
 const app = express()
+app.use('/static', express.static('./uploads'))
 
 const corsOptions = {
     origin: ['https://fasocard.com','http://localhost:5173'],
