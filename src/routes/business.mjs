@@ -9,7 +9,7 @@ import { PassThrough } from 'stream'
 
 import multer from 'multer'
 
-const __dirnmae=path.resolve()
+const __dirname=path.resolve()
 // Business photos storage setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
