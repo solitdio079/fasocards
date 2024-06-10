@@ -1,9 +1,10 @@
-import { Router } from "express"
+import express from "express"
 import Users from "../models/users.mjs"
 import Business from '../models/business.mjs'
 
 
-const router = Router()
+const router = express.Router()
+router.use(express.json())
 
 
 const checkStatus = (req, res, next) => {

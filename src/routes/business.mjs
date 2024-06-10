@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import express from 'express'
 import { validationResult, matchedData, checkSchema, param } from 'express-validator'
 import businessSchema from '../validators/businessValidator.mjs'
 import Business from '../models/business.mjs'
@@ -36,7 +36,7 @@ const checkLogin = (req, res, next) => {
 }
 
 
-const router = Router()
+const router = express.Router()
 
 router.get('/:name', async (req, res) => {
   const { name } = req.params
@@ -96,6 +96,7 @@ router.post("/", upload.single('profilePhoto'), (req, res, next) => {
         return res.send(error.message)
     }
 })
+router.use(express.json())
 
 router.get("/list/:owner", param('owner').isEmail().withMessage('The owner should be an email'), async(req,res) => {
     const result = validationResult(req)

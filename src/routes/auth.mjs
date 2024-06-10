@@ -1,9 +1,10 @@
-import { Router } from "express"
+import express from "express"
 import 'dotenv/config.js'
 import passport from "passport"
 import '../loginStrategies/email-link.mjs'
 
-const router = Router()
+const router = express.Router()
+router.use(express.json())
 router.post(
   '/login/email',
   passport.authenticate('magiclink', {
