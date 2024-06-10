@@ -12,7 +12,7 @@ import multer from 'multer'
 // Business photos storage setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/uploads/businesses'))
+    cb(null, path.resolve('/uploads/businesses'))
   },
   filename: function (req, file, cb) {
     const uniqueSuffix =
