@@ -8,6 +8,7 @@ import passport from 'passport'
 import authRouter from './src/routes/auth.mjs'
 import businessRouter from './src/routes/business.mjs'
 import adminRouter from './src/routes/admin.mjs'
+import path from 'node:path'
 
 
 
@@ -21,7 +22,7 @@ try {
 }
 // Instantiating the express app
 const app = express()
-app.use('/static', express.static('./uploads'))
+app.use('/static', express.static(path.join(__dirname, 'uploads')))
 
 const corsOptions = {
     origin: ['https://fasocard.com','http://localhost:5173'],
