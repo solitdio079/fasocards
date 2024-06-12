@@ -13,7 +13,7 @@ const __dirname=path.resolve()
 // Business photos storage setup
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '/uploads/businesses'))
+    cb(null, '/uploads/businesses')
   },
   filename: function (req, file, cb) {
     const uniqueSuffix =
