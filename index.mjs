@@ -23,7 +23,7 @@ try {
 // Instantiating the express app
 const __dirname = path.resolve()
 const app = express()
-app.use('/static', express.static('/uploads'))
+app.use('/static', express.static('./uploads'))
 
 const corsOptions = {
     origin: ['https://fasocard.com','http://localhost:5173'],
