@@ -162,7 +162,7 @@ router.patch(
       await Business.findOneAndReplace({ name }, {...checkBusiness,...body })
       res.send({ message: 'Here is your updated record', data: body })
     } catch (error) {
-      return res.send({ error })
+      return res.send({ error:error.message })
     }
   }
 )
