@@ -161,36 +161,76 @@ router.get("/getQRcode/:name", param('name').notEmpty().withMessage("Please ente
 
 
 
-router.put('/update/:name', param('name').notEmpty().withMessage('Please enter the name of your business!'),checkSchema(businessSchema), async (req, res) => {
-   
-    
-  // Checking whether the validation has errors or not
-  const result = validationResult(req)
-  if (!result.isEmpty()) {
-    return res.send(result.array())
-  }
+router.put(
+  '/update/:name',
+  upload.single('profilePhoto'),
+  param('name')
+    .notEmpty()
+    .withMessage('Please enter the name of your business!'),
+  checkSchema(businessSchema),
+  async (req, res) => {
+    // Checking whether the validation has errors or not
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+      return res.send(result.array())
+    }
 
-  //const data = matchedData(req)
+    //const data = matchedData(req)
 
-  
-
-  // Creating a new business
+    // Creating a new business
     const { body } = req
     const { name } = req.params
     const owner = req.user.email
-   
+     const profilePhoto = `https://api.fasocard.com/static/businesses/${req.file.filename}`
+
     try {
-        //Verify if business exists
-          const checkBusiness = await Business.findOne({ name })
-        if (!checkBusiness) return res.status(404).send({error: "No record found!"})
-            await Business.findOneAndReplace({ name }, {...body, owner})
-        res.send({message:'Here is your updated record',data: body})
-        
+      //Verify if business exists
+      const checkBusiness = await Business.findOne({ name })
+      if (!checkBusiness)
+        return res.status(404).send({ error: 'No record found!' })
+      await Business.findOneAndReplace({ name }, { ...body, owner, profilePhoto })
+      res.send({ message: 'Here is your updated record', data: body })
     } catch (error) {
-        return res.send({error})
-        
+      return res.send({ error })
     }
-})
+  }
+)
+
+router.patch(
+  '/patch/:name',
+  upload.none('profilePhoto'),
+  param('name')
+    .notEmpty()
+    .withMessage('Please enter the name of your business!'),
+  checkSchema(businessSchema), async (req, res) => {
+    // Checking whether the validation has errors or not
+    const result = validationResult(req)
+    if (!result.isEmpty()) {
+      return res.send(result.array())
+    }
+
+    //const data = matchedData(req)
+
+    // Creating a new business
+    const { body } = req
+    const { name } = req.params
+    //const owner = req.user.email
+
+    try {
+      //Verify if business exists
+      const checkBusiness = await Business.findOne({ name })
+      if (!checkBusiness)
+        return res.status(404).send({ error: 'No record found!' })
+      await Business.findOneAndReplace(
+        { name },
+        { ...checkBusiness, ...body}
+      )
+      res.send({ message: 'Here is your updated record', data: body })
+    } catch (error) {
+      return res.send({ error })
+    }
+  }
+)
 
 
 router.delete("/delete/:id", async (req, res) => {
