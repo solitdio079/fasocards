@@ -13,15 +13,19 @@ const businessSchema = {
   description: {
     isLength: {
       options: { min: 20 },
-      errorMessage: 'Your business description must have at least 20 characters',
+      errorMessage:
+        'Your business description must have at least 20 characters',
     },
   },
+  phone: {
+    notEmpty: true,
+  },
   country: {
-    notEmpty: true
+    notEmpty: true,
   },
   address: {
-    notEmpty: true
-  }
+    notEmpty: true,
+  },
 }
 
 export default businessSchema

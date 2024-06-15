@@ -11,7 +11,7 @@ const businessSchema = new Schema(
     },
     profilePhoto: {
       type: String,
-      required:true
+      required: true,
     },
     owner: {
       required: true,
@@ -26,13 +26,18 @@ const businessSchema = new Schema(
       required: true,
       unique: true,
     },
+    phone: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     country: {
       type: String,
-      required: true
+      required: true,
     },
     address: {
       type: String,
-      required: true
+      required: true,
     },
     website: {
       type: String,
