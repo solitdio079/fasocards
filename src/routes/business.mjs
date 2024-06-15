@@ -157,9 +157,12 @@ router.patch(
     try {
       //Verify if business exists
       const checkBusiness = await Business.findOne({ name })
+      
       if (!checkBusiness)
         return res.status(404).send({ error: 'No record found!' })
-      await Business.findOneAndReplace({ name }, {...checkBusiness,...body })
+      body.profilePhoto = checkBusiness.profilePhoto
+      body.owner = checkBusiness.owner
+      await Business.findOneAndReplace({ name }, {...body})
       res.send({ message: 'Here is your updated record', data: body })
     } catch (error) {
       return res.send({ error:error.message })
