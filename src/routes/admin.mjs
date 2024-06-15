@@ -30,4 +30,16 @@ router.get("/stats", async (req, res) => {
     ]})
 })
 
+router.get('/users', async (req, res) => {
+    try {
+        const allUsers = await Users.find({}).sort({ _id: -1 })
+        res.send({msg:"All users", data:allUsers})
+    } catch (error) {
+        res.send({error: error.message})
+    }
+   
+
+    
+})
+
 export default router

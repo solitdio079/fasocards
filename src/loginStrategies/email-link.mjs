@@ -54,7 +54,7 @@ const magicLogin = new magicLinkStrategy(
 passport.serializeUser(function (user, cb) {
   console.log('Inside Serializer')
   process.nextTick(function () {
-    cb(null, { id: user.id, email: user.email, isAdmin: user.admin })
+    cb(null, { id: user.id, email: user.email, isAdmin: user.admin, isAllowed: user.isAllowed || false })
   })
 })
 
