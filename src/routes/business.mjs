@@ -135,7 +135,7 @@ router.patch(
   param('name')
     .notEmpty()
     .withMessage('Please enter the name of your business!'),
-  upload.none('profilePhoto'),(req,res) => {console.log(req.body)},
+  upload.none(),(req,res) => {console.log(req.body)},
   checkSchema(businessSchema),
   async (req, res) => {
     // Checking whether the validation has errors or not
