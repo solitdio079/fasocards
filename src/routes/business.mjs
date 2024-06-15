@@ -152,14 +152,14 @@ router.patch(
     // Creating a new business
     const { body } = req
     const { name } = req.params
-    const owner = req.user.email
+    //const owner = req.user.email
 
     try {
       //Verify if business exists
       const checkBusiness = await Business.findOne({ name })
       if (!checkBusiness)
         return res.status(404).send({ error: 'No record found!' })
-      await Business.findOneAndReplace({ name }, {...body, owner })
+      await Business.findOneAndReplace({ name }, {...checkBusiness,...body })
       res.send({ message: 'Here is your updated record', data: body })
     } catch (error) {
       return res.send({ error })
