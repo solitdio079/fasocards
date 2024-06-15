@@ -80,7 +80,7 @@ router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), asy
     // Creating a new business 
     const { body } = req
   const owner = req.user.email
-  const profilePhoto = req.file.filename
+  const profilePhoto = `https://api.fasocard.com/static/businesses/${req.file.filename}`
    body.name= body.name.trim()
     const newBusiness = new Business({...body, owner, profilePhoto})
     try {
