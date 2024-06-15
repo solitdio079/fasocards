@@ -92,10 +92,11 @@ router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), asy
 })
 router.put(
   '/update/:name',
-  upload.single('profilePhoto'),
+
   param('name')
     .notEmpty()
     .withMessage('Please enter the name of your business!'),
+  upload.single('profilePhoto'),
   checkSchema(businessSchema),
   async (req, res) => {
     // Checking whether the validation has errors or not
@@ -130,10 +131,11 @@ router.put(
 
 router.patch(
   '/patch/:name',
-  upload.none('profilePhoto'),
+
   param('name')
     .notEmpty()
     .withMessage('Please enter the name of your business!'),
+  upload.none('profilePhoto'),(req,res) => {console.log(req.body)},
   checkSchema(businessSchema),
   async (req, res) => {
     // Checking whether the validation has errors or not
