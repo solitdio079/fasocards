@@ -48,7 +48,10 @@ router.patch('/users/patch/:id', async(req, res) => {
     try {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
-        const newUser =  new Users({...checkUser, isAllowed: body.isAllowed})
+        console.log(checkUser)
+        const email = checkUser.email
+        const admin = checkUser.admin
+        const newUser =  new Users({email, admin, isAllowed: body.isAllowed})
         await newUser.save()
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
