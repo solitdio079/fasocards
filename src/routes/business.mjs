@@ -33,6 +33,7 @@ const upload = multer({ storage: storage })
 
 const checkLogin = (req, res, next) => {
   if (!req.user) return res.send('Please Login!')
+  if(!req.user.isAllowed) return res.send({error:'Non autorise!'})
   next()
 }
 
