@@ -62,8 +62,11 @@ router.patch('/users/patch/:id', async(req, res) => {
 
 router.get("/users/filter/:q", async (req, res) => {
     const { q } = req.params
+    console.log(q);
     try {
-        const filteredUsers = await Users.find({ email: `/${q}/i` })
+        const filteredUsers = await Users.find({
+          email: { $regex: '.*' + q + '.*' , $options:'i' }
+        })
         res.send({msg:'Matched Users are here!', data: filteredUsers})
     } catch (error) {
         res.send({error: error.message})
