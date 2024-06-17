@@ -74,15 +74,17 @@ router.get("/users/filter/:q", async (req, res) => {
    
 })
 
+
 router.get('/business/list', async (req, res) => {
     try {
-        const allBusiness = await Users.find({})
+        const allBusiness = await Business.find({})
         return res.send({msg: 'All your Businesses', data: allBusiness})
     } catch (error) {
         return res.send({error: error.message})
     }
     
 })
+
 
 router.get('/business/filter/:q', async (req, res) => {
      const {q} = req.params
