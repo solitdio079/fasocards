@@ -41,6 +41,7 @@ router.get('/users', async (req, res) => {
 
     
 })
+
 router.patch('/users/patch/:id', async(req, res) => {
     const { id } = req.params
     const { body } = req
@@ -57,5 +58,16 @@ router.patch('/users/patch/:id', async(req, res) => {
     } catch (error) {
         return res.send({error:error.message})
     }
+})
+
+router.get("/users/filter/:q", async (req, res) => {
+    const { q } = req.params
+    try {
+        const filteredUsers = await Users.find({ email: `/${q}/i` })
+        res.send({msg:'Matched Users are here!', data: filteredUsers})
+    } catch (error) {
+        res.send({error: error.message})
+    }
+   
 })
 export default router
