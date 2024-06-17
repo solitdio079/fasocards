@@ -180,7 +180,7 @@ router.get("/list/:owner", param('owner').isEmail().withMessage('The owner shoul
 
 
     // cHECK İF logged in user is the owner
-    if(owner !== req.user.email) res.status(403).send({error: "This is not your account!"})
+    if(owner !== req.user.email && !req.user.isAdmin) res.status(403).send({error: "This is not your account!"})
 
     try {
         const allBusiness = await Business.find({ owner })
@@ -223,7 +223,8 @@ router.get("/getQRcode/:name", param('name').notEmpty().withMessage("Please ente
           return res.status(404).send({ error: 'This business does not exist!' })
         
         // Check if user is the owner of business
-        if(checkBusiness.owner !== req.user.email) return res.status(403).send({ error: 'This business is not yours!' })
+        if (checkBusiness.owner !== req.user.email && !req.user.isAdmin)
+          return res.status(403).send({ error: 'This business is not yours!' })
 
       // Generate QR code and send it to user
         const businessUrl = encodeURI('http//fasocard.com/business/' + data.name)

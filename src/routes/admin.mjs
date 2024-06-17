@@ -62,15 +62,41 @@ router.patch('/users/patch/:id', async(req, res) => {
 
 router.get("/users/filter/:q", async (req, res) => {
     const { q } = req.params
-    console.log(q);
+   // console.log(q);
     try {
         const filteredUsers = await Users.find({
           email: { $regex: '.*' + q + '.*' , $options:'i' }
         })
-        res.send({msg:'Matched Users are here!', data: filteredUsers})
+        return res.send({msg:'Matched Users are here!', data: filteredUsers})
     } catch (error) {
-        res.send({error: error.message})
+        return res.send({error: error.message})
     }
    
+})
+
+router.get('/business/list', async (req, res) => {
+    try {
+        const allBusiness = await Users.find({})
+        return res.send({msg: 'All your Businesses', data: allBusiness})
+    } catch (error) {
+        return res.send({error: error.message})
+    }
+    
+})
+
+router.get('/business/filter/:q', async (req, res) => {
+     const {q} = req.params
+    try {
+        const filteredBusinesses = await Business.find({
+          $or: [
+            { name: { $regex: '.*' + q + '.*', $options: 'i' } },
+            { country: { $regex: '.*' + q + '.*', $options: 'i' } },
+          ],
+        })
+        return res.send({ msg: 'Matched Users are here!', data: filteredBusinesses })
+        
+    } catch (error) {
+        return res.send({ error: error.message })
+    }
 })
 export default router
