@@ -71,7 +71,7 @@ router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), asy
     // Checking whether the validation has errors or not
     const result = validationResult(req)
     if (!result.isEmpty()) {
-        return res.send(req.body)
+        return res.send(result.array())
     }
 
     //const data = matchedData(req)
@@ -82,13 +82,13 @@ router.post("/", upload.single('profilePhoto'), checkSchema(businessSchema), asy
     const { body } = req
   const owner = req.user.email
   const profilePhoto = `https://api.fasocard.com/static/businesses/${req.file.filename}`
-   body.name= body.name.trim()
+  body.name= body.name.trim()
     const newBusiness = new Business({...body, owner, profilePhoto})
     try {
         await newBusiness.save()
         return res.status(201).send(newBusiness)
     } catch (error) {
-        return res.send(error.message)
+        return res.send({error:error.message})
     }
 })
 router.put(
@@ -125,7 +125,7 @@ router.put(
       )
       res.send({ message: 'Here is your updated record', data: body })
     } catch (error) {
-      return res.send({ error })
+      return res.send({ error: error.message })
     }
   }
 )
