@@ -26,7 +26,7 @@ const app = express()
 app.use('/static', express.static('./uploads'))
 
 const corsOptions = {
-    origin: ['https://fasocard.com','http://localhost:5173'],
+    origin: ['https://fasocard.com', 'https://www.fasocard.com','http://localhost:5173'],
     credentials: true,
     optionsSuccessStatus: 200,
   }
