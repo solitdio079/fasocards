@@ -50,7 +50,7 @@ router.put('/users/put/:id', async(req, res) => {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
         console.log(isAdmin ,isAllowed)
-        console.log(JSON.stringify(req))
+        console.log(JSON.stringify(req.body))
         const email = checkUser.email
         const admin = isAdmin !== undefined ? isAdmin : false
         const allowed = isAllowed !== undefined ? isAllowed: false
