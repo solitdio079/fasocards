@@ -51,8 +51,8 @@ router.patch('/users/patch/:id', async(req, res) => {
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
         console.log(body.isAllowed)
         const email = checkUser.email
-        const admin = checkUser.admin
-        const isAllowed = !checkUser.isAllowed
+        const admin = body.isAdmin
+        const isAllowed = body.isAllowed
         const newUser =  await Users.findByIdAndUpdate(id, {email,admin, isAllowed})
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
