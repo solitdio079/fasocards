@@ -4,7 +4,7 @@ import Business from '../models/business.mjs'
 
 
 const router = express.Router()
-router.use(express.json())
+
 
 
 const checkStatus = (req, res, next) => {
@@ -13,7 +13,7 @@ const checkStatus = (req, res, next) => {
 }
 
 router.use(checkStatus)
-
+router.use(express.json())
 router.get("/stats", async (req, res) => {
 
     const totalUsers = await Users.countDocuments()
@@ -44,16 +44,16 @@ router.get('/users', async (req, res) => {
 
 router.put('/users/put/:id', async(req, res) => {
     const { id } = req.params
-    const { isAdmin, isAllowed } = req.body
+    const { body } = req
     
     try {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
-        console.log(isAdmin ,isAllowed)
-        console.log(JSON.stringify(req.body))
+       
+        console.log(req.body)
         const email = checkUser.email
-        const admin = isAdmin !== undefined ? isAdmin : false
-        const allowed = isAllowed !== undefined ? isAllowed: false
+        const admin = body.isAdmin !== undefined ? body.isAdmin : false
+        const allowed = body.isAllowed !== undefined ? body.isAllowed: false
         const newUser =  await Users.findByIdAndUpdate(id, {email,admin, isAllowed:allowed})
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
