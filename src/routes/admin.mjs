@@ -45,15 +45,16 @@ router.get('/users', async (req, res) => {
 router.put('/users/put/:id', async(req, res) => {
     const { id } = req.params
     const { body } = req
-    
+    body.isAdmin = body.isAdmin === 'on' ? true : false
+    body.isAllowed = body.isAllowed === 'on' ? true : false
     try {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
        
         console.log(req.body)
         const email = checkUser.email
-        const admin = body.isAdmin !== undefined ? body.isAdmin : false
-        const allowed = body.isAllowed !== undefined ? body.isAllowed: false
+        const admin = body.isAdmin 
+        const allowed = body.isAllowed
         const newUser =  await Users.findByIdAndUpdate(id, {email,admin, isAllowed:allowed})
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
