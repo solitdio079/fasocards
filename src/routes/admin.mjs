@@ -44,15 +44,15 @@ router.get('/users', async (req, res) => {
 
 router.patch('/users/patch/:id', async(req, res) => {
     const { id } = req.params
-    const { body } = req
+    const { isAdmin } = req.body
     
     try {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
-        console.log(body.isAllowed)
+        console.log(req.body)
         const email = checkUser.email
-        const admin = body.isAdmin
-        const isAllowed = body.isAllowed
+        const admin = isAdmin
+        const isAllowed = req.body.isAllowed
         const newUser =  await Users.findByIdAndUpdate(id, {email,admin, isAllowed})
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
