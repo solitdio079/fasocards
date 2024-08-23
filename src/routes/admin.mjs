@@ -42,9 +42,9 @@ router.get('/users', async (req, res) => {
     
 })
 
-router.patch('/users/patch/:id', async(req, res) => {
+router.put('/users/put/:id', async(req, res) => {
     const { id } = req.params
-    const { isAdmin, isAllowed } = req.query
+    const { isAdmin, isAllowed } = req.body
     
     try {
         const checkUser = await Users.findById(id)
