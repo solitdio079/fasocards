@@ -52,8 +52,8 @@ router.put('/users/put/:id', async(req, res) => {
         console.log(isAdmin ,isAllowed)
         console.log(JSON.stringify(req))
         const email = checkUser.email
-        const admin = isAdmin !== 0 ? isAdmin : false
-        const allowed = isAllowed !== 0 ? isAllowed: false
+        const admin = isAdmin !== undefined ? isAdmin : false
+        const allowed = isAllowed !== undefined ? isAllowed: false
         const newUser =  await Users.findByIdAndUpdate(id, {email,admin, isAllowed:allowed})
         return res.status(203).send({msg:"User updated", data: newUser})
     } catch (error) {
