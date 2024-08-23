@@ -49,7 +49,7 @@ router.patch('/users/patch/:id', async(req, res) => {
     try {
         const checkUser = await Users.findById(id)
         if (!checkUser) return res.status(404).send({ msg: "No User found" })
-        console.log(req.body)
+        console.log(isAdmin)
         const email = checkUser.email
         const admin = isAdmin
         const isAllowed = req.body.isAllowed
