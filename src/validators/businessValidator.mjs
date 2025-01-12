@@ -1,9 +1,6 @@
 const businessSchema = {
   name: {
-    isLength: {
-      options: { min: 5 },
-      errorMessage: 'Your business name must have at least 5 characters',
-    },
+    notEmpty: true
   },
   email: {
     isEmail: {
@@ -11,11 +8,7 @@ const businessSchema = {
     },
   },
   description: {
-    isLength: {
-      options: { min: 20 },
-      errorMessage:
-        'Your business description must have at least 20 characters',
-    },
+    notEmpty: true
   },
   phone: {
     notEmpty: true,

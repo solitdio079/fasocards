@@ -7,7 +7,7 @@ const businessSchema = new Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
+      
     },
     profilePhoto: {
       type: String,
@@ -29,7 +29,7 @@ const businessSchema = new Schema(
     phone: {
       type: String,
       required: true,
-      unique: true,
+      
     },
     country: {
       type: String,
