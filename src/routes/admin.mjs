@@ -8,7 +8,7 @@ const router = express.Router()
 
 
 const checkStatus = (req, res, next) => {
-    if (!req.user || !req.user.isAdmin)  throw new Error("Vous n'etes pas admin!")
+    if (!req.user || !req.user.isAdmin)  return res.send({error: "Vous n'etes pas admin!"} )
     next()
 }
 
